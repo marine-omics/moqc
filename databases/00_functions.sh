@@ -9,7 +9,7 @@ make_taxonmap(){
 	fagz=$1
 	taxid=$2
 	description=$3
-	gunzip -c ${fagz} | bioawk -c fastx -v taxid=${taxid} -v desc=$description \
+	gunzip -c ${fagz} | bioawk -c fastx -v taxid=${taxid} -v desc="$description" \
 	'{printf("%s\t%s\t%s\n",$name,taxid,desc)}'
 }
 

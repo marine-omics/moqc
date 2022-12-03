@@ -1,0 +1,4 @@
+sample,fastq_1,fastq_2
+PfLc,test/data/PfLc.1.fastq.gz,test/data/PfLc.2.fastq.gz
+PfLd,test/data/PfLd.1.fastq.gz,test/data/PfLd.2.fastq.gz
+PfLe,test/data/PfLe.1.fastq.gz,test/data/PfLe.2.fastq.gz
