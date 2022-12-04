@@ -19,12 +19,12 @@ process krakenuniq {
 
   if (meta.single_end) {
   """
-  krakenuniq ${krakendb_args} ${args} ${reads[0]} ${reads[1]} > ${outfile}
+  krakenuniq ${krakendb_args} --threads ${task.cpus} ${args} ${reads[0]} ${reads[1]} > ${outfile}
   """
     } else {
   """
   gunzip -c ${reads[0]} > ${reads[0].baseName} && gunzip -c ${reads[1]} > ${reads[1].baseName} && \
-  krakenuniq ${krakendb_args} ${args} --paired ${reads[0].baseName} ${reads[1].baseName} > ${outfile}
+  krakenuniq ${krakendb_args} --threads ${task.cpus} ${args} --paired ${reads[0].baseName} ${reads[1].baseName} > ${outfile}
   """
   }
 
