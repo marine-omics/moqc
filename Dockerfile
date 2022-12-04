@@ -4,15 +4,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   build-essential unzip wget openjdk-11-jre time locales \
-  libbz2-dev zlib1g zlib1g-dev liblzma-dev pkg-config libncurses5-dev 
-
-RUN apt-get update && apt-get install -y --no-install-recommends  \
+  libbz2-dev zlib1g zlib1g-dev liblzma-dev pkg-config libncurses5-dev \
   python3-pip cpanminus curl
-#  make python3-pip \
-#  python3-dev \
-#  cpanminus \
-#  libncurses5-dev libbz2-dev liblzma-dev python \
-#  bc parallel meson ninja-build libvcflib-tools vcftools zlib1g pkg-config cmake
 
 RUN cpanm LWP::Simple
 
@@ -34,24 +27,29 @@ RUN wget 'http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.
 
 RUN pip install multiqc
 
+
+RUN wget 'https://github.com/marbl/Krona/releases/download/v2.8.1/KronaTools-2.8.1.tar' &&\
+  tar -xvf KronaTools-2.8.1.tar &&\
+  cd  KronaTools-2.8.1 && ./install.pl && ./updateTaxonomy.sh
+
 ENV LC_ALL C
 ENV PATH=/usr/local/bin:$PATH
 
 # samtools
-ARG SAMTOOLSVER=1.16.1
-RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLSVER}/samtools-${SAMTOOLSVER}.tar.bz2 && \
- tar -xjf samtools-${SAMTOOLSVER}.tar.bz2 && \
- rm samtools-${SAMTOOLSVER}.tar.bz2 && \
- cd samtools-${SAMTOOLSVER} && \
- ./configure && \
- make && \
- make install && rm -rf /usr/local/samtools-1.16.1
+#ARG SAMTOOLSVER=1.16.1
+#RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLSVER}/samtools-${SAMTOOLSVER}.tar.bz2 && \
+# tar -xjf samtools-${SAMTOOLSVER}.tar.bz2 && \
+# rm samtools-${SAMTOOLSVER}.tar.bz2 && \
+# cd samtools-${SAMTOOLSVER} && \
+# ./configure && \
+# make && \
+# make install && rm -rf /usr/local/samtools-1.16.1
 
 # Fastp
-WORKDIR /usr/local/bin/
-RUN wget http://opengene.org/fastp/fastp.0.23.1 && \
-    mv fastp.0.23.1 fastp &&\
-    chmod a+x ./fastp
+#WORKDIR /usr/local/bin/
+#RUN wget http://opengene.org/fastp/fastp.0.23.1 && \
+#    mv fastp.0.23.1 fastp &&\
+#    chmod a+x ./fastp
 
 # Cleanup apt package lists to save space
 RUN rm -rf /var/lib/apt/lists/*

@@ -5,7 +5,12 @@ include { multiqc_fastqc; multiqc_fastp; multiqc_bams } from './modules/multiqc.
 include { fastp } from './modules/fastp.nf'
 include { sidx; faidx; flagstat; stat; idxstat } from './modules/samtools.nf'
 include { krakenuniq;krakenuniq_mpa } from './modules/krakenuniq.nf'
+include { krona_import_taxonomy } from './modules/krona.nf'
 
+if(!params.outdir){
+  log.error "No outdir provided"
+  exit 1
+}
 
 workflow qc {
   take:
@@ -14,28 +19,21 @@ workflow qc {
     fastqin | fastqc | collect | multiqc_fastqc
 }
 
-workflow preprocess {
-  take:
-    fastqin
-
-  main:
-    fastp(fastqin) 
-    fastp.out.json | collect | multiqc_fastp
-
-  emit:
-    fastp.out.reads
-}
-
 workflow {
   kraken_dbs = Channel.from(params.krakendbs).splitCsv() | collect
 
 // Preprocess data
   ch_input_sample = extract_csv(file(params.samples, checkIfExists: true))
 
-  ch_krakenouts = krakenuniq(ch_input_sample,kraken_dbs)
+  krakenuniq(ch_input_sample,kraken_dbs)
+
+  ch_krakenouts = krakenuniq.out.kraken
 
   krakenuniq_mpa(ch_krakenouts,kraken_dbs)
 
+  ch_krakenouts | collect | krona_import_taxonomy
+
+  ch_input_sample | qc
 }
 
 
