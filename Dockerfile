@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
   build-essential unzip wget openjdk-11-jre time locales \
   libbz2-dev zlib1g zlib1g-dev liblzma-dev pkg-config libncurses5-dev \
-  python3-pip cpanminus curl
+  python3-pip cpanminus curl r-base
 
 RUN cpanm LWP::Simple
 
@@ -34,6 +34,9 @@ RUN wget 'https://github.com/marbl/Krona/releases/download/v2.8.1/KronaTools-2.8
 
 ENV LC_ALL C
 ENV PATH=/usr/local/bin:$PATH
+
+RUN Rscript -e "install.packages('tidyverse')"
+
 
 # samtools
 #ARG SAMTOOLSVER=1.16.1

@@ -1,16 +1,12 @@
 # Building kraken databases
 
-Kraken and krakenuniq run very fast, however, one downside is that building the requisite databases takes a long time. 
-
 The scripts in this directory as designed to semi-automate the process of building appropriate databases for classifying reads from coral sequencing projects. 
 
-Each database has its own shell script for building. For example
+Each database has its own shell script for building. To run them all invoke the master script like this.
 
 ```bash
-bash 02_symbiont_genomes.sh
+bash 01_build_all.sh
 ```
-
-Will build the `symbiont_genomes` database
 
 ## Dependencies
 
