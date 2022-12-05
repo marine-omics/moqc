@@ -30,6 +30,7 @@ RUN pip install multiqc
 
 RUN wget 'https://github.com/marbl/Krona/releases/download/v2.8.1/KronaTools-2.8.1.tar' &&\
   tar -xvf KronaTools-2.8.1.tar &&\
+  rm KronaTools-2.8.1.tar &&\
   cd  KronaTools-2.8.1 && ./install.pl && ./updateTaxonomy.sh
 
 ENV LC_ALL C

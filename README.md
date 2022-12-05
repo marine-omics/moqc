@@ -16,6 +16,10 @@ graph TD;
 
 0. Build the krakenuniq databases. If you are working on our JCU server, genomics2 this is already done. Otherwise see section below on building the databases.
 1. Install [nextflow](https://www.nextflow.io/)
+After installing nextflow you should also set the value of your `NXF_SINGULARITY_CACHE` environment variable.  This is the directory where singularity will store images containing all the software required to run this pipeline.  To make sure this variable is set every time you login you should add it to your `~/.bash_profile`. For example I have the following line in my `~/.bash_profile`.
+```bash
+export NXF_SINGULARITY_CACHEDIR="${HOME}/.nxf/singularity_cache"
+```
 2. Create the sample csv file (example below)
 ```
 sample,fastq_1,fastq_2
@@ -33,7 +37,7 @@ If you need to customise further you can create your own `custom.config` file an
 
 4. Run the workflow with your samples file
 ```bash
-nextflow run marine-omics/moqc -profile genomics2 -r main --samples <samples.csv> --outdir myoutputs
+nextflow run marine-omics/moqc -latest -profile genomics2 -r main --samples <samples.csv> --outdir myoutputs
 ```
 
 ## Outputs
@@ -48,6 +52,6 @@ Once the pipeline has finished running you should find the following useful outp
 
 The krakenuniq databases required for this pipeline are very large and take a lot of compute power to build. We recommend you build these in a central location on a shared computer so that they can be used by multiple users. 
 
-See [databases] for details.
+See [databases](databases) for details.
 
 
