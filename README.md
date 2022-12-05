@@ -16,6 +16,17 @@ graph TD;
 
 0. Build the krakenuniq databases. If you are working on our JCU server, genomics2 this is already done. Otherwise see section below on building the databases.
 1. Install [nextflow](https://www.nextflow.io/)
+Before installing nextflow you need to make sure you have a sufficiently modern java (11 or higher). You can find out with
+```bash
+java --version
+```
+If you java is too old you can try installing a newer java using `sdkman`.
+```bash
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk install java 11.0.2-open
+sdk default java 11.0.2-open
+```
 After installing nextflow you should also set the value of your `NXF_SINGULARITY_CACHE` environment variable.  This is the directory where singularity will store images containing all the software required to run this pipeline.  To make sure this variable is set every time you login you should add it to your `~/.bash_profile`. For example I have the following line in my `~/.bash_profile`.
 ```bash
 export NXF_SINGULARITY_CACHEDIR="${HOME}/.nxf/singularity_cache"
