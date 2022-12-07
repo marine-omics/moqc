@@ -94,7 +94,7 @@ prepare_inputs(){
 build_db(){
 	DLDIR=$1
 	DBNAME=$2
-	DBTYPE=${3:genome}
+	DBTYPE=${3:-genome}
 	
 	prepare_inputs $DLDIR $DBNAME $DBTYPE
 

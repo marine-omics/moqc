@@ -20,7 +20,7 @@ Before installing nextflow you need to make sure you have a sufficiently modern 
 ```bash
 java --version
 ```
-If you java is too old you can try installing a newer java using `sdkman`.
+If your java is too old you can try installing a newer java using `sdkman`.
 ```bash
 curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
@@ -31,12 +31,22 @@ After installing nextflow you should also set the value of your `NXF_SINGULARITY
 ```bash
 export NXF_SINGULARITY_CACHEDIR="${HOME}/.nxf/singularity_cache"
 ```
-2. Create the sample csv file (example below)
+2. Create the sample csv file (example below). Note that the header line is mandatory and must be identical to that shown in the example.
 ```
 sample,fastq_1,fastq_2
 1,sample1_r1.fastq.gz,sample1_r2.fastq.gz
 2,sample2_r1.fastq.gz,sample2_r2.fastq.gz
 ```
+
+or for single-end data
+
+```
+sample,fastq_1
+1,sample1_r1.fastq.gz
+2,sample2_r1.fastq.gz
+```
+
+
 
 Paths should either be given as absolute paths or relative to the launch directory (where you invoked the nextflow command)
 
