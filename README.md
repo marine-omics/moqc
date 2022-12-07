@@ -15,22 +15,7 @@ graph TD;
 ## Quick Start
 
 0. Build the krakenuniq databases. If you are working on our JCU server, genomics2 this is already done. Otherwise see section below on building the databases.
-1. Install [nextflow](https://www.nextflow.io/)
-Before installing nextflow you need to make sure you have a sufficiently modern java (11 or higher). You can find out with
-```bash
-java --version
-```
-If your java is too old you can try installing a newer java using `sdkman`.
-```bash
-curl -s "https://get.sdkman.io" | bash
-source "$HOME/.sdkman/bin/sdkman-init.sh"
-sdk install java 11.0.2-open
-sdk default java 11.0.2-open
-```
-After installing nextflow you should also set the value of your `NXF_SINGULARITY_CACHE` environment variable.  This is the directory where singularity will store images containing all the software required to run this pipeline.  To make sure this variable is set every time you login you should add it to your `~/.bash_profile`. For example I have the following line in my `~/.bash_profile`.
-```bash
-export NXF_SINGULARITY_CACHEDIR="${HOME}/.nxf/singularity_cache"
-```
+1. Install and configure [nextflow](https://www.nextflow.io/). See [here](https://gist.github.com/iracooke/bec2b24a86eb682f7d3055eea15e61aa) for instructions specific to JCU machines (zodiac, genomics1, genomics2)
 2. Create the sample csv file (example below). Note that the header line is mandatory and must be identical to that shown in the example.
 ```
 sample,fastq_1,fastq_2
@@ -45,8 +30,6 @@ sample,fastq_1
 1,sample1_r1.fastq.gz
 2,sample2_r1.fastq.gz
 ```
-
-
 
 Paths should either be given as absolute paths or relative to the launch directory (where you invoked the nextflow command)
 
