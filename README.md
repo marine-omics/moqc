@@ -12,7 +12,7 @@ graph TD;
 	krakenuniq-->Rplot;
 ```
 
-## Quick Start
+## Getting Started
 
 0. Build the krakenuniq databases. If you are working on our JCU server, genomics2 this is already done. Otherwise see section below on building the databases.
 1. Install and configure [nextflow](https://www.nextflow.io/). See [here](https://gist.github.com/iracooke/bec2b24a86eb682f7d3055eea15e61aa) for instructions specific to JCU machines (zodiac, genomics1, genomics2)
