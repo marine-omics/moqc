@@ -6,6 +6,7 @@ include { fastp } from './modules/fastp.nf'
 include { sidx; faidx; flagstat; stat; idxstat } from './modules/samtools.nf'
 include { krakenuniq;krakenuniq_mpa } from './modules/krakenuniq.nf'
 include { krona_import_taxonomy } from './modules/krona.nf'
+include { symbiont_plot } from './modules/rplots.nf'
 
 if(!params.outdir){
   log.error "No outdir provided"
@@ -25,10 +26,10 @@ workflow {
 // Preprocess data
   ch_input_sample = extract_csv(file(params.samples, checkIfExists: true))
 
-  ch_input_sample.view()
-
 
   krakenuniq(ch_input_sample,kraken_dbs)
+
+  krakenuniq.out.krakenreport | symbiont_plot
 
   ch_krakenouts = krakenuniq.out.kraken
 
