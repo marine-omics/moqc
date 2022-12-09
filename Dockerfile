@@ -5,7 +5,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
   build-essential unzip wget openjdk-11-jre time locales \
   libbz2-dev zlib1g zlib1g-dev liblzma-dev pkg-config libncurses5-dev \
-  python3-pip cpanminus curl r-base
+  python3-pip cpanminus curl r-base \
+  libcurl4-openssl-dev libxml2-dev libssl-dev
 
 RUN cpanm LWP::Simple
 
@@ -37,24 +38,9 @@ RUN wget 'https://github.com/marbl/Krona/releases/download/v2.8.1/KronaTools-2.8
 ENV LC_ALL C
 ENV PATH=/usr/local/bin:$PATH
 
-RUN Rscript -e "install.packages('tidyverse')"
+RUN R -e "install.packages('tidyverse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
-
-# samtools
-#ARG SAMTOOLSVER=1.16.1
-#RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLSVER}/samtools-${SAMTOOLSVER}.tar.bz2 && \
-# tar -xjf samtools-${SAMTOOLSVER}.tar.bz2 && \
-# rm samtools-${SAMTOOLSVER}.tar.bz2 && \
-# cd samtools-${SAMTOOLSVER} && \
-# ./configure && \
-# make && \
-# make install && rm -rf /usr/local/samtools-1.16.1
-
-# Fastp
-# WORKDIR /usr/local/bin/
-# RUN wget http://opengene.org/fastp/fastp.0.23.1 && \
-#     mv fastp.0.23.1 fastp &&\
-#     chmod a+x ./fastp
+ADD R/* /usr/local/bin/
 
 # Cleanup apt package lists to save space
 RUN rm -rf /var/lib/apt/lists/*

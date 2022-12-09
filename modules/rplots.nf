@@ -13,7 +13,7 @@ process symbiont_plot {
   def args = task.ext.args ?: ''
 
   """
-  Rscript ${projectDir}/R/plot_symbionts.R .
+  Rscript /usr/local/bin/plot_symbionts.R .
   """
 
 }
