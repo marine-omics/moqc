@@ -31,7 +31,8 @@ RUN pip install multiqc
 RUN wget 'https://github.com/marbl/Krona/releases/download/v2.8.1/KronaTools-2.8.1.tar' &&\
   tar -xvf KronaTools-2.8.1.tar &&\
   rm KronaTools-2.8.1.tar &&\
-  cd  KronaTools-2.8.1 && ./install.pl && ./updateTaxonomy.sh
+  cd  KronaTools-2.8.1 && ./install.pl && ./updateTaxonomy.sh && \
+  chmod a+rx -R /usr/local/KronaTools-2.8.1/
 
 ENV LC_ALL C
 ENV PATH=/usr/local/bin:$PATH
@@ -50,10 +51,10 @@ RUN Rscript -e "install.packages('tidyverse')"
 # make install && rm -rf /usr/local/samtools-1.16.1
 
 # Fastp
-#WORKDIR /usr/local/bin/
-#RUN wget http://opengene.org/fastp/fastp.0.23.1 && \
-#    mv fastp.0.23.1 fastp &&\
-#    chmod a+x ./fastp
+# WORKDIR /usr/local/bin/
+# RUN wget http://opengene.org/fastp/fastp.0.23.1 && \
+#     mv fastp.0.23.1 fastp &&\
+#     chmod a+x ./fastp
 
 # Cleanup apt package lists to save space
 RUN rm -rf /var/lib/apt/lists/*
