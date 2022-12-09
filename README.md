@@ -31,7 +31,7 @@ sample,fastq_1
 2,sample2_r1.fastq.gz
 ```
 
-Paths should either be given as absolute paths or relative to the launch directory (where you invoked the nextflow command)
+Paths should either be given as absolute paths or relative to the launch directory (where you invoked the nextflow command).  Also note that for `moqc` the items in the sample column must be unique.  So if you have multiple files per sample you will need to give them separate IDs in the first column. 
 
 3. Choose a profile for your execution environment. This depends on where you are running your code. `moqc` comes with preconfigured profiles that should work on JCU infrastructure. These are
 	- *genomics2* (HPC nodes without pbs): Use `-profile genomics2`. This is the preferred profile because databases are already installed
