@@ -25,6 +25,9 @@ workflow {
 // Preprocess data
   ch_input_sample = extract_csv(file(params.samples, checkIfExists: true))
 
+  ch_input_sample.view()
+
+
   krakenuniq(ch_input_sample,kraken_dbs)
 
   ch_krakenouts = krakenuniq.out.kraken
@@ -56,6 +59,8 @@ def extract_csv(csv_file) {
     .map{ row -> 
       def meta = [:]
       meta.sample = row.sample
+
+      if (! meta.sample) exit 1, "Encountered a row with a null sample. All samples must have names"
 
       def fastq_1     = file(resolve_path(row.fastq_1), checkIfExists: true)
       def fastq_2     = row.fastq_2 ? file(resolve_path(row.fastq_2), checkIfExists: true) : null
