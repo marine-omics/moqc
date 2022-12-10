@@ -29,7 +29,7 @@ workflow {
 
   krakenuniq(ch_input_sample,kraken_dbs)
 
-  krakenuniq.out.krakenreport | collect | symbiont_plot
+//  krakenuniq.out.krakenreport | collect | symbiont_plot
 
   ch_krakenouts = krakenuniq.out.kraken
 
