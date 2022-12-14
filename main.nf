@@ -31,7 +31,7 @@ workflow {
 
   kraken_reports = krakenuniq.out.krakenreport | collect
 
-  symbiont_plot(kraken_reports,"${projectDir}/R/symbiont_plot.R")
+  symbiont_plot(kraken_reports,"${projectDir}/R/plot_symbionts.R")
 
   ch_krakenouts = krakenuniq.out.kraken
 
