@@ -1,9 +1,12 @@
 process symbiont_plot {
 
+  label 'tidyverse'
+
   publishDir "$params.outdir/symbiont_plot", mode: 'copy'
 
   input:
     path(report)
+    path 'plot_symbionts.R'
 
   output:
     path "*.png"
@@ -13,7 +16,7 @@ process symbiont_plot {
   def args = task.ext.args ?: ''
 
   """
-  Rscript /usr/local/bin/plot_symbionts.R .
+  Rscript plot_symbionts.R .
   """
 
 }
