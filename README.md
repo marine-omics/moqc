@@ -78,6 +78,9 @@ symbiont_report_data %>%
 
 ```
 
+## Note about disk usage
+
+The `moqc` pipeline creates some fairly large temporary files.  The default behaviour is to keep these around in the `work` directory because their presence can speed up reruns of the pipeline if you use the `-resume` option. Once you have finished your run however it is probably a good idea to delete the `work` directory entirely as this will take a lot of disk space and be of little lasting value.  
 
 ## Building databases
 

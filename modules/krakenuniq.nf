@@ -1,6 +1,6 @@
 process krakenuniq {
 
-  publishDir "$params.outdir/krakenuniq", mode: 'copy'
+  publishDir "$params.outdir/krakenuniq", mode: 'copy', pattern: '*.kraken.report'
 
   input:
     tuple val(meta), path(reads)
@@ -27,6 +27,7 @@ process krakenuniq {
   """
   gunzip -c ${reads[0]} > ${reads[0].baseName} && gunzip -c ${reads[1]} > ${reads[1].baseName} && \
   krakenuniq ${krakendb_args} --report-file ${reportfile} --threads ${task.cpus} ${args} --paired ${reads[0].baseName} ${reads[1].baseName} > ${outfile}
+  rm ${reads[0].baseName} ${reads[1].baseName}
   """
   }
 
