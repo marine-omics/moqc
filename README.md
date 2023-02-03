@@ -78,6 +78,10 @@ symbiont_report_data %>%
 
 ```
 
+## File subsampling
+
+By default `moqc` uses the first 1M reads in each of your input files.  This should be sufficient to generate accurate taxonomic profiles including taxa at quite low abundance (<0.1%).  If you want to reduce disk usage and speed things up consider reducing this number (eg `--maxreads 100000`). If you want to use more of your data consider increasing it (though this will take longer).
+
 ## Note about disk usage
 
 The `moqc` pipeline creates some fairly large temporary files.  The default behaviour is to keep these around in the `work` directory because their presence can speed up reruns of the pipeline if you use the `-resume` option. Once you have finished your run however it is probably a good idea to delete the `work` directory entirely as this will take a lot of disk space and be of little lasting value.  

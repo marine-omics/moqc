@@ -14,9 +14,7 @@ if(!params.outdir){
   exit 1
 }
 
-if(!params.maxreads){
-  params.maxreads=1000000
-}
+params.maxreads=1000000
 
 workflow qc {
   take:
@@ -31,7 +29,7 @@ workflow {
 // Preprocess data
   ch_input_sample = extract_csv(file(params.samples, checkIfExists: true))
 
-  ch_input_sample_reduced = maxreads(ch_input_sample,params.maxreads)
+  ch_input_sample_reduced = sample_reads(ch_input_sample,params.maxreads)
 
   krakenuniq(ch_input_sample_reduced,kraken_dbs)
 

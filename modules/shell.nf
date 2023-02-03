@@ -13,8 +13,8 @@ process sample_reads {
   """
   } else {
   """
-  gunzip -c ${reads[0]} | head $maxreads | gzip > ${reads[0].baseName}.sample.fastq.gz
-  gunzip -c ${reads[1]} | head $maxreads | gzip > ${reads[1].baseName}.sample.fastq.gz
+  gunzip -c ${reads[0]} | head -n $maxreads | gzip > ${reads[0].baseName}.sample.fastq.gz
+  gunzip -c ${reads[1]} | head -n $maxreads | gzip > ${reads[1].baseName}.sample.fastq.gz
   """
   }
 
