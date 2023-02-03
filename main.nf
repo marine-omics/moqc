@@ -7,10 +7,15 @@ include { sidx; faidx; flagstat; stat; idxstat } from './modules/samtools.nf'
 include { krakenuniq;krakenuniq_mpa } from './modules/krakenuniq.nf'
 include { krona_import_taxonomy } from './modules/krona.nf'
 include { symbiont_plot } from './modules/rplots.nf'
+include { sample_reads } from './modules/shell.nf'
 
 if(!params.outdir){
   log.error "No outdir provided"
   exit 1
+}
+
+if(!params.maxreads){
+  params.maxreads=1000000
 }
 
 workflow qc {
@@ -26,8 +31,9 @@ workflow {
 // Preprocess data
   ch_input_sample = extract_csv(file(params.samples, checkIfExists: true))
 
+  ch_input_sample_reduced = maxreads(ch_input_sample,params.maxreads)
 
-  krakenuniq(ch_input_sample,kraken_dbs)
+  krakenuniq(ch_input_sample_reduced,kraken_dbs)
 
   kraken_reports = krakenuniq.out.krakenreport | collect
 
@@ -39,7 +45,7 @@ workflow {
 
   ch_krakenouts | collect | krona_import_taxonomy
 
-  ch_input_sample | qc
+  ch_input_sample_reduced | qc
 }
 
 

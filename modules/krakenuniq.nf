@@ -19,11 +19,13 @@ process krakenuniq {
 
   krakendb_args = params.krakendbs.split(",").collect { db -> "--db ${db}"}.join(" ")
 
+
+
   if (meta.single_end) {
   """
-  krakenuniq ${krakendb_args} --report-file ${reportfile} --threads ${task.cpus} ${args} ${reads[0]} ${reads[1]} > ${outfile}
+  krakenuniq ${krakendb_args} --report-file ${reportfile} --threads ${task.cpus} ${args} ${reads} > ${outfile}
   """
-    } else {
+  } else {
   """
   gunzip -c ${reads[0]} > ${reads[0].baseName} && gunzip -c ${reads[1]} > ${reads[1].baseName} && \
   krakenuniq ${krakendb_args} --report-file ${reportfile} --threads ${task.cpus} ${args} --paired ${reads[0].baseName} ${reads[1].baseName} > ${outfile}
