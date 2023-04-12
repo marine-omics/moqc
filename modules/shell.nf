@@ -9,7 +9,7 @@ process sample_reads {
   script:
   if (meta.single_end) {
   """
-  gunzip -c $reads | head $maxreads | gzip > ${reads.baseName}.sample.fastq.gz
+  gunzip -c $reads | head -n $maxreads | gzip > ${reads.baseName}.sample.fastq.gz
   """
   } else {
   """
